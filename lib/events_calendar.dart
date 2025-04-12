@@ -170,6 +170,28 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            calendarBuilders: CalendarBuilders<Event>(
+              markerBuilder: (context, date, events) {
+                if (events.isNotEmpty) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                        events.take(3).map((event) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _getPriorityColor(event.priority),
+                            ),
+                          );
+                        }).toList(),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
           ),
           const SizedBox(height: 8.0),
           Expanded(
