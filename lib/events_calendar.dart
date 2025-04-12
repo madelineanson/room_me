@@ -86,6 +86,19 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     }
   }
 
+  Color _getPriorityColor(String priority) {
+    switch (priority.toLowerCase()) {
+      case 'high':
+        return Colors.red;
+      case 'medium':
+        return Colors.orange;
+      case 'low':
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +185,12 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        color: _getPriorityColor(
+                          value[index].priority,
+                        ).withOpacity(0.2),
+                        border: Border.all(
+                          color: _getPriorityColor(value[index].priority),
+                        ),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
@@ -205,7 +223,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                             },
                           );
                         },
-                        title: Text('${value[index]}'),
+                        title: Text(value[index].title),
                       ),
                     );
                   },
